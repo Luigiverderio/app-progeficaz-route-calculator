@@ -5,3 +5,7 @@ CONTEXTO.md
 docs/superpowers/
 
 .claude
+
+.env
+.env.local
+.env.*.local
