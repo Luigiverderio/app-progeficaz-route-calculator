@@ -7,6 +7,8 @@ import TelaLogin from './pages/Login/index.jsx'
 import TelaFavoritas from './pages/Favoritas/index.jsx'
 import TelaCadastro from './pages/Cadastro/index.jsx'
 
+import PrivateRoute from './components/PrivateRoute.jsx'
+
 import './index.css'
 import App from './App.jsx'
 
@@ -16,8 +18,8 @@ const router = createBrowserRouter([
   { path: '/' , element: <Navigate to="/login" replace></Navigate>},
   { path: '/login', element: <TelaLogin></TelaLogin>},
   { path: '/cadastro', element: <TelaCadastro></TelaCadastro>},
-  { path: '/favoritas', element: <TelaFavoritas></TelaFavoritas>},
-  { path: '/mapa', element: <TelaMapa></TelaMapa>}
+  { path: '/favoritas', element: <PrivateRoute><TelaFavoritas></TelaFavoritas></PrivateRoute>},
+  { path: '/mapa', element: <PrivateRoute><TelaMapa></TelaMapa></PrivateRoute>}
 ])
 
 createRoot(document.getElementById('root')).render(
