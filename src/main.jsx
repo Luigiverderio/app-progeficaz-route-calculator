@@ -10,7 +10,7 @@ import TelaCadastro from './pages/Cadastro/index.jsx'
 import './index.css'
 import App from './App.jsx'
 
-
+    
 // Criando o BrowserRooter para redirecionar o user para as páginas certas
 const router = createBrowserRouter([
   { path: '/' , element: <Navigate to="/login" replace></Navigate>},
