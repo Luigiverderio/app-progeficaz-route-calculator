@@ -4,9 +4,7 @@ import TelaLogin from "./pages/Login";
 import TelaMapa from "./pages/Mapa"
 
 function App(){
-  return(
-    <TelaCadastro/>
-  )
+  return
 }
 
 export default App
