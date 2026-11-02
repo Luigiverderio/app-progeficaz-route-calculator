@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MapContainer, TileLayer } from "react-leaflet";
+import { MapContainer, TileLayer, Polyline } from "react-leaflet";
 import { calcularRota } from "../../services/api";
 
 export default function TelaMapa() {
@@ -49,6 +49,12 @@ export default function TelaMapa() {
           attribution="&copy; OpenStreetMap"
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        {rota && (
+          <Polyline
+            positions={rota.coordenadas}
+            pathOptions={{ color: "#1a73e8", weight: 5 }}
+          />
+        )}
       </MapContainer>
     </div>
   );
