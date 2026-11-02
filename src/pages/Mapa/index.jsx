@@ -40,6 +40,17 @@ export default function TelaMapa() {
         <button type="submit">Calcular rota</button>
       </form>
 
+      {rota && (
+        <div style={{ marginBottom: "8px" }}>
+          <p style={{ fontSize: "1.5rem", fontWeight: "bold", margin: "4px 0" }}>
+            Tempo de caminhada: {Math.round(rota.duracao_min)} min
+          </p>
+          <p style={{ margin: "4px 0" }}>
+            Distância: {rota.distancia_km.toFixed(1)} km
+          </p>
+        </div>
+      )}
+
       <MapContainer
         center={[-23.5505, -46.6333]}
         zoom={12}
