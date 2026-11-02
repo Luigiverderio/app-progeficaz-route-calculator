@@ -29,4 +29,9 @@ api.interceptors.response.use(
   }
 );
 
+export async function calcularRota(origem, destino) {
+  const res = await api.post("/rota", { origem, destino });
+  return res.data;
+}
+
 export default api
