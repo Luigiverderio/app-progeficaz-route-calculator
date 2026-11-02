@@ -6,16 +6,34 @@ export default function TelaMapa() {
   const [origem, setOrigem] = useState("");
   const [destino, setDestino] = useState("");
   const [rota, setRota] = useState(null);
+  const [erro, setErro] = useState("");
 
   function handleSubmit(event) {
     event.preventDefault();
+    setErro("");
+
+    if (!origem.trim() || !destino.trim()) {
+      setErro("Preencha a origem e o destino.");
+      return;
+    }
+
     calcularRota(origem, destino)
       .then((data) => {
         setRota(data);
-        console.log("rota:", data);
       })
       .catch((error) => {
-        console.error(error);
+        const status = error.response?.status;
+        if (status === 400) {
+          setErro("Preencha a origem e o destino.");
+        } else if (status === 404) {
+          setErro("Endereço não encontrado. Confira a origem e o destino.");
+        } else if (status === 502) {
+          setErro("O serviço de mapas está indisponível. Tente de novo em instantes.");
+        } else if (status === 401) {
+          setErro("Sua sessão expirou. Faça login de novo.");
+        } else {
+          setErro("Não foi possível calcular a rota. Tente novamente.");
+        }
       });
   }
 
@@ -39,6 +57,8 @@ export default function TelaMapa() {
         />
         <button type="submit">Calcular rota</button>
       </form>
+
+      {erro && <p style={{ color: "red", margin: "4px 0" }}>{erro}</p>}
 
       {rota && (
         <div style={{ marginBottom: "8px" }}>
