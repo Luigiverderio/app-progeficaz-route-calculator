@@ -8,3 +8,5 @@ docs/superpowers/
 venv/
 .env
 dist/
+mock-backend/*
+mock-backend
