@@ -34,4 +34,23 @@ export async function calcularRota(origem, destino) {
   return res.data;
 }
 
+export async function listarFavoritas() {
+  const res = await api.get("/favoritas");
+  return res.data.favoritas;
+}
+
+export async function salvarFavorita(nome, origem, destino, ultima_duracao_min) {
+  const res = await api.post("/favoritas", { nome, origem, destino, ultima_duracao_min });
+  return res.data;
+}
+
+export async function atualizarFavorita(id, ultima_duracao_min) {
+  const res = await api.put(`/favoritas/${id}`, { ultima_duracao_min });
+  return res.data;
+}
+
+export async function apagarFavorita(id) {
+  await api.delete(`/favoritas/${id}`);
+}
+
 export default api
