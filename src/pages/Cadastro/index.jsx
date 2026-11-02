@@ -34,7 +34,7 @@ export default function TelaCadastro() {
   }
 
   return (
-    <div>
+    <div className="auth-card">
       <h1>Cadastro</h1>
       <form onSubmit={handleSubmit}>
         <input
