@@ -9,6 +9,7 @@ import TelaCadastro from './pages/Cadastro/index.jsx'
 
 import PrivateRoute from './components/PrivateRoute.jsx'
 
+import 'leaflet/dist/leaflet.css'
 import './index.css'
 import App from './App.jsx'
 

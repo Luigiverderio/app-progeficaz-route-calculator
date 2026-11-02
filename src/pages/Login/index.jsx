@@ -11,23 +11,26 @@ function TelaLogin() {
 
   async function entrar(event) {
     event.preventDefault();
-    await login(email, senha)
-    navigate('/mapa')
+    try {
+      await login(email, senha)
+      navigate('/mapa')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+    return (
+      <div>
+        <h1>Faça seu Login</h1>
+        <form onSubmit={entrar}>
+          <label htmlFor="email">Email:</label>
+          <input value={email} name="email" onChange={(event) => setEmail(event.target.value)} type='email' />
+          <label htmlFor="senha">Senha:</label>
+          <input value={senha} name="senha" onChange={(event) => setSenha(event.target.value)} type='password' />
+          <button type="submit">Entrar</button>
+        </form>
+      </div>
+    )
   }
 
-  return (
-    <div>
-      <h1>Faça seu Login</h1>
-      <form onSubmit={entrar}>
-        <label htmlFor="email">Email:</label>
-        <input value={email} name="email" onChange={(event) => setEmail(event.target.value)} type='email' />
-        <label htmlFor="senha">Senha:</label>
-        <input value={senha} name="senha" onChange={setSenha} type='password' />
-        <button type="submit">Entrar</button>
-      </form>
-    </div>
-  )
-}
 
-
-export default TelaLogin
+  export default TelaLogin
