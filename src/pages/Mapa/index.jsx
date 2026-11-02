@@ -1,13 +1,22 @@
 import { useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
+import { calcularRota } from "../../services/api";
 
 export default function TelaMapa() {
   const [origem, setOrigem] = useState("");
   const [destino, setDestino] = useState("");
+  const [rota, setRota] = useState(null);
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log("origem:", origem, "destino:", destino);
+    calcularRota(origem, destino)
+      .then((data) => {
+        setRota(data);
+        console.log("rota:", data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   return (
