@@ -1,6 +1,13 @@
 import { useState } from "react";
-import { MapContainer, TileLayer, Polyline } from "react-leaflet";
+import { MapContainer, TileLayer, Polyline, Marker, Popup } from "react-leaflet";
+import L from "leaflet";
+import iconUrl from "leaflet/dist/images/marker-icon.png";
+import iconRetinaUrl from "leaflet/dist/images/marker-icon-2x.png";
+import shadowUrl from "leaflet/dist/images/marker-shadow.png";
 import { calcularRota } from "../../services/api";
+
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({ iconUrl, iconRetinaUrl, shadowUrl });
 
 export default function TelaMapa() {
   const [origem, setOrigem] = useState("");
@@ -81,10 +88,18 @@ export default function TelaMapa() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {rota && (
-          <Polyline
-            positions={rota.coordenadas}
-            pathOptions={{ color: "#1a73e8", weight: 5 }}
-          />
+          <>
+            <Polyline
+              positions={rota.coordenadas}
+              pathOptions={{ color: "#1a73e8", weight: 5 }}
+            />
+            <Marker position={[rota.origem.lat, rota.origem.lng]}>
+              <Popup>Origem</Popup>
+            </Marker>
+            <Marker position={[rota.destino.lat, rota.destino.lng]}>
+              <Popup>Destino</Popup>
+            </Marker>
+          </>
         )}
       </MapContainer>
     </div>
