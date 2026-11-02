@@ -19,7 +19,7 @@ function TelaLogin() {
     }
   }
     return (
-      <div>
+      <div className="auth-card">
         <h1>Faça seu Login</h1>
         <form onSubmit={entrar}>
           <label htmlFor="email">Email:</label>
