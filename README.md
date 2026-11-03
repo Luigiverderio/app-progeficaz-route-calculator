@@ -1,16 +1,30 @@
-# React + Vite
+# 🚶 Calculador de Rotas a Pé
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Front-end em React do Projeto 3 de Programação Eficaz (Insper, 2026/2).
 
-Currently, two official plugins are available:
+## 🔗 Links
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Site:** http://route-calculator-static.s3-website.us-east-2.amazonaws.com
+- **API:** http://3.141.166.91
+- **Servidor:** https://github.com/Luigiverderio/server-app-progeficaz
 
-## React Compiler
+## ✨ Funcionalidades
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Cadastro e login com JWT
+- Rota a pé no mapa, com distância e tempo
+- CRUD completo de favoritas:
+  - **Criar:** salvar a rota calculada com um nome (`POST /favoritas`)
+  - **Listar:** ver todas as favoritas na página Favoritas (`GET /favoritas`)
+  - **Atualizar:** recalcular a rota e atualizar o tempo salvo (`PUT /favoritas/<id>`)
+  - **Apagar:** remover uma favorita (`DELETE /favoritas/<id>`)
 
-## Expanding the ESLint configuration
+## 🛠️ Tecnologias
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+React · Vite · React Router · axios · Leaflet
+
+## 💻 Como rodar
+
+```bash
+npm install
+npm run dev
+```
