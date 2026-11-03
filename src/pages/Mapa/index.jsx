@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { MapContainer, TileLayer, Polyline, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import iconUrl from "leaflet/dist/images/marker-icon.png";
@@ -12,6 +12,9 @@ delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({ iconUrl, iconRetinaUrl, shadowUrl });
 
 export default function TelaMapa() {
+  const [searchParams] = useSearchParams();
+  const jaCalculouFavorita = useRef(false);
+
   const [origem, setOrigem] = useState("");
   const [destino, setDestino] = useState("");
   const [rota, setRota] = useState(null);
@@ -22,21 +25,15 @@ export default function TelaMapa() {
   const [msgFavorita, setMsgFavorita] = useState("");
   const [erroFavorita, setErroFavorita] = useState("");
 
-  function handleSubmit(event) {
-    event.preventDefault();
+  function buscarRota(o, d) {
     setErro("");
     setMsgFavorita("");
     setErroFavorita("");
 
-    if (!origem.trim() || !destino.trim()) {
-      setErro("Preencha a origem e o destino.");
-      return;
-    }
-
-    calcularRota(origem, destino)
+    calcularRota(o, d)
       .then((data) => {
         setRota(data);
-        setBusca({ origem, destino });
+        setBusca({ origem: o, destino: d });
       })
       .catch((error) => {
         const status = error.response?.status;
@@ -52,6 +49,27 @@ export default function TelaMapa() {
           setErro("Não foi possível calcular a rota. Tente novamente.");
         }
       });
+  }
+
+  useEffect(() => {
+    const o = searchParams.get("origem");
+    const d = searchParams.get("destino");
+    if (!o || !d || jaCalculouFavorita.current) return;
+
+    jaCalculouFavorita.current = true;
+    setOrigem(o);
+    setDestino(d);
+    buscarRota(o, d);
+    
+  }, [searchParams]);
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    if (!origem.trim() || !destino.trim()) {
+      setErro("Preencha a origem e o destino.");
+      return;
+    }
+    buscarRota(origem, destino);
   }
 
   function handleSalvarFavorita(event) {
