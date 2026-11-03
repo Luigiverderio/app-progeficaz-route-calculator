@@ -108,3 +108,32 @@ a {
   flex: none;
   background: var(--bg);
 }
+
+/* Link com cara de botão (contorno) */
+.link-botao {
+  display: inline-block;
+  padding: 8px 16px;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.link-botao:hover {
+  background: var(--accent);
+  color: #0b1220;
+}
+
+/* Cabeçalho com título e ação na mesma linha */
+.cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.cabecalho h1 {
+  margin: 0;
+}

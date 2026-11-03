@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { listarFavoritas, apagarFavorita } from '../../services/api'
 
 const estiloCartao = {
@@ -12,12 +13,19 @@ const estiloCartao = {
 function TelaFavoritas() {
   const [favoritas, setFavoritas] = useState([])
   const [erro, setErro] = useState("")
+  const navigate = useNavigate()
 
   useEffect(() => {
     listarFavoritas()
       .then((lista) => setFavoritas(lista))
       .catch(() => setErro("Não foi possível carregar as favoritas."))
   }, [])
+
+  function usar(fav) {
+    navigate(
+      `/mapa?origem=${encodeURIComponent(fav.origem)}&destino=${encodeURIComponent(fav.destino)}&id=${fav.id}`
+    )
+  }
 
   function apagar(id) {
     setErro("")
@@ -30,7 +38,11 @@ function TelaFavoritas() {
 
   return (
     <div style={{ maxWidth: "600px", margin: "0 auto" }}>
-      <h1>Minhas Favoritas</h1>
+      
+      <div className="cabecalho">
+        <h1>Minhas Favoritas</h1>
+        <Link to="/mapa" className="link-botao">← Voltar ao mapa</Link>
+      </div>
 
       {erro && <p style={{ color: "red" }}>{erro}</p>}
 
@@ -45,6 +57,7 @@ function TelaFavoritas() {
             <p>{fav.origem} → {fav.destino}</p>
             <p>Caminho a pé: <strong>{Number(fav.ultima_duracao_min)} min</strong></p>
             <div style={{ display: "flex", gap: "8px", marginTop: "8px" }}>
+              <button onClick={() => usar(fav)}>Usar</button>
               <button onClick={() => apagar(fav.id)} style={{ background: "#ff6b6b" }}>
                 Apagar
               </button>
