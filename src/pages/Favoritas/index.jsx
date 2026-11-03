@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { listarFavoritas, apagarFavorita } from '../../services/api'
+import AppBar from '../../components/AppBar'
 
 const estiloCartao = {
   background: "var(--surface)",
@@ -39,10 +40,8 @@ function TelaFavoritas() {
   return (
     <div style={{ maxWidth: "600px", margin: "0 auto" }}>
       
-      <div className="cabecalho">
-        <h1>Minhas Favoritas</h1>
-        <Link to="/mapa" className="link-botao">← Voltar ao mapa</Link>
-      </div>
+      <AppBar />
+      <h1>Minhas Favoritas</h1>
 
       {erro && <p style={{ color: "red" }}>{erro}</p>}
 

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { MapContainer, TileLayer, Polyline, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import iconUrl from "leaflet/dist/images/marker-icon.png";
@@ -7,6 +7,7 @@ import iconRetinaUrl from "leaflet/dist/images/marker-icon-2x.png";
 import shadowUrl from "leaflet/dist/images/marker-shadow.png";
 import { calcularRota, salvarFavorita, atualizarFavorita } from "../../services/api";
 import AjustarZoom from "../../components/AjustarZoom";
+import AppBar from "../../components/AppBar";
 
 
 delete L.Icon.Default.prototype._getIconUrl;
@@ -26,7 +27,7 @@ export default function TelaMapa() {
   const [msgFavorita, setMsgFavorita] = useState("");
   const [erroFavorita, setErroFavorita] = useState("");
 
-    function buscarRota(o, d, idFavorita = null) {
+  function buscarRota(o, d, idFavorita = null) {
     setErro("");
     setMsgFavorita("");
     setErroFavorita("");
@@ -36,7 +37,7 @@ export default function TelaMapa() {
         setRota(data);
         setBusca({ origem: o, destino: d });
 
-        
+
         if (idFavorita) {
           atualizarFavorita(idFavorita, Math.round(data.duracao_min))
             .then(() => setMsgFavorita("Duração da favorita atualizada."))
@@ -68,7 +69,7 @@ export default function TelaMapa() {
     setOrigem(o);
     setDestino(d);
     buscarRota(o, d, searchParams.get("id"));
-    
+
   }, [searchParams]);
 
   function handleSubmit(event) {
@@ -111,10 +112,8 @@ export default function TelaMapa() {
 
   return (
     <div>
-      <div className="cabecalho">
-        <h1>Mapa</h1>
-        <Link to="/favoritas" className="link-botao">Minhas favoritas</Link>
-      </div>
+      <AppBar />
+      <h1>Mapa</h1>
 
       <form
         onSubmit={handleSubmit}

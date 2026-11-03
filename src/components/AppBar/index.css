@@ -18,18 +18,27 @@
 .appbar-links {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
 }
 
 .appbar-links a {
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
   color: var(--text);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
 }
 
-.appbar-links a:hover,
-.appbar-links a.active {
+.appbar-links a:hover {
+  border-color: var(--accent);
   color: var(--accent);
+}
+
+.appbar-links a.active {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #0b1220;
 }
 
 .appbar-sair {
