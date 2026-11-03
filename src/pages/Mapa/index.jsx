@@ -16,6 +16,7 @@ L.Icon.Default.mergeOptions({ iconUrl, iconRetinaUrl, shadowUrl });
 export default function TelaMapa() {
   const [searchParams] = useSearchParams();
   const jaCalculouFavorita = useRef(false);
+  const idFavorita = searchParams.get("id");
 
   const [origem, setOrigem] = useState("");
   const [destino, setDestino] = useState("");
@@ -36,7 +37,6 @@ export default function TelaMapa() {
       .then((data) => {
         setRota(data);
         setBusca({ origem: o, destino: d });
-
 
         if (idFavorita) {
           atualizarFavorita(idFavorita, Math.round(data.duracao_min))
@@ -68,7 +68,7 @@ export default function TelaMapa() {
     jaCalculouFavorita.current = true;
     setOrigem(o);
     setDestino(d);
-    buscarRota(o, d, searchParams.get("id"));
+    buscarRota(o, d);
 
   }, [searchParams]);
 
@@ -130,6 +130,14 @@ export default function TelaMapa() {
           onChange={(e) => setDestino(e.target.value)}
         />
         <button type="submit">Calcular rota</button>
+        {idFavorita && (
+          <button
+            type="button"
+            onClick={() => buscarRota(searchParams.get("origem"), searchParams.get("destino"), idFavorita)}
+          >
+            Recalcular rota
+          </button>
+        )}
       </form>
 
       {erro && <p style={{ color: "red", margin: "4px 0" }}>{erro}</p>}
