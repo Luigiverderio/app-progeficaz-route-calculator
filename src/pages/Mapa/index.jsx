@@ -5,8 +5,9 @@ import L from "leaflet";
 import iconUrl from "leaflet/dist/images/marker-icon.png";
 import iconRetinaUrl from "leaflet/dist/images/marker-icon-2x.png";
 import shadowUrl from "leaflet/dist/images/marker-shadow.png";
-import { calcularRota, salvarFavorita } from "../../services/api";
+import { calcularRota, salvarFavorita, atualizarFavorita } from "../../services/api";
 import AjustarZoom from "../../components/AjustarZoom";
+
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({ iconUrl, iconRetinaUrl, shadowUrl });
@@ -25,7 +26,7 @@ export default function TelaMapa() {
   const [msgFavorita, setMsgFavorita] = useState("");
   const [erroFavorita, setErroFavorita] = useState("");
 
-  function buscarRota(o, d) {
+    function buscarRota(o, d, idFavorita = null) {
     setErro("");
     setMsgFavorita("");
     setErroFavorita("");
@@ -34,6 +35,13 @@ export default function TelaMapa() {
       .then((data) => {
         setRota(data);
         setBusca({ origem: o, destino: d });
+
+        
+        if (idFavorita) {
+          atualizarFavorita(idFavorita, Math.round(data.duracao_min))
+            .then(() => setMsgFavorita("Duração da favorita atualizada."))
+            .catch(() => setErroFavorita("Não foi possível atualizar a duração da favorita."));
+        }
       })
       .catch((error) => {
         const status = error.response?.status;
@@ -59,7 +67,7 @@ export default function TelaMapa() {
     jaCalculouFavorita.current = true;
     setOrigem(o);
     setDestino(d);
-    buscarRota(o, d);
+    buscarRota(o, d, searchParams.get("id"));
     
   }, [searchParams]);
 
