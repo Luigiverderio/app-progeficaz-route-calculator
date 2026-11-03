@@ -38,8 +38,11 @@ function TelaFavoritas() {
 
   return (
     <div style={{ maxWidth: "600px", margin: "0 auto" }}>
-      <h1>Minhas Favoritas</h1>
-      <p><Link to="/mapa">← Voltar ao mapa</Link></p>
+      
+      <div className="cabecalho">
+        <h1>Minhas Favoritas</h1>
+        <Link to="/mapa" className="link-botao">← Voltar ao mapa</Link>
+      </div>
 
       {erro && <p style={{ color: "red" }}>{erro}</p>}
 

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { MapContainer, TileLayer, Polyline, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import iconUrl from "leaflet/dist/images/marker-icon.png";
@@ -84,7 +85,10 @@ export default function TelaMapa() {
 
   return (
     <div>
-      <h1>Mapa</h1>
+      <div className="cabecalho">
+        <h1>Mapa</h1>
+        <Link to="/favoritas" className="link-botao">Minhas favoritas</Link>
+      </div>
 
       <form
         onSubmit={handleSubmit}
